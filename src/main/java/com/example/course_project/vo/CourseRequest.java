@@ -1,40 +1,26 @@
-package com.example.course_project.entity;
+package com.example.course_project.vo;
 
 import java.time.LocalTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
-@Table(name="course")
-public class Course {
-	@Id
-	@Column(name = "course_code")
+public class CourseRequest {
+
+	@JsonProperty("coursecode")
 	private String courseCode;
-	@Column(name = "course_name")
+	@JsonProperty("coursename")
 	private String courseName;
-	@Column(name = "course_day")
+	@JsonProperty("courseday")
 	private String courseDay;
-	@Column(name = "course_start")
+	@JsonProperty("coursestart")
 	private LocalTime courseStart;
-	@Column(name = "course_end")
+	@JsonProperty("courseend")
 	private LocalTime courseEnd;
-	@Column(name = "credit")
+	@JsonProperty("credit")
 	private int credit;
-	
-	public Course() {
 
-	}
-	
-	public Course(String courseCode,String courseName,String courseDay,LocalTime courseStart,LocalTime courseEnd,int credit) {
-		this.courseCode=courseCode;
-		this.courseName=courseName;
-		this.courseDay=courseDay;
-		this.courseStart=courseStart;
-		this.courseEnd=courseEnd;
-		this.credit=credit;
+	public CourseRequest() {
+
 	}
 
 	public String getCourseCode() {
@@ -85,6 +71,4 @@ public class Course {
 		this.credit = credit;
 	}
 
-	
-	
 }

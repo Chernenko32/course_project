@@ -8,9 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="course")
-public class Course {
+@Table(name = "studentcourse")
+public class StudentCourse {
+
 	@Id
+	@Column(name = "id")
+	private String id;
+	@Column(name = "student_id")
+	private String studentId;
+	@Column(name = "student_name")
+	private String studentName;
 	@Column(name = "course_code")
 	private String courseCode;
 	@Column(name = "course_name")
@@ -24,17 +31,46 @@ public class Course {
 	@Column(name = "credit")
 	private int credit;
 	
-	public Course() {
+	public StudentCourse() {
 
 	}
-	
-	public Course(String courseCode,String courseName,String courseDay,LocalTime courseStart,LocalTime courseEnd,int credit) {
-		this.courseCode=courseCode;
-		this.courseName=courseName;
-		this.courseDay=courseDay;
-		this.courseStart=courseStart;
-		this.courseEnd=courseEnd;
-		this.credit=credit;
+
+	public StudentCourse(String id, String studentId, String studentName, String courseCode, String courseName,
+			String courseDay, LocalTime courseStart, LocalTime courseEnd, int credit) {
+		super();
+		this.id = id;
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.courseCode = courseCode;
+		this.courseName = courseName;
+		this.courseDay = courseDay;
+		this.courseStart = courseStart;
+		this.courseEnd = courseEnd;
+		this.credit = credit;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
 	}
 
 	public String getCourseCode() {
@@ -84,7 +120,6 @@ public class Course {
 	public void setCredit(int credit) {
 		this.credit = credit;
 	}
-
 	
 	
 }
