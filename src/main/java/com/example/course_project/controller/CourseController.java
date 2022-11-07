@@ -20,13 +20,13 @@ public class CourseController {
 
 	@Autowired
 	private CourseService courseService;
-
+	//新增課程
 	@PostMapping(value = "/api/createcourse")
 	public CourseResponse createcourse(@RequestBody CourseRequest request) {
 		return courseService.createCourse(request.getCourseCode(), request.getCourseName(), request.getCourseDay(),
 				request.getCourseStart(), request.getCourseEnd(), request.getCredit());
 	}
-
+	//刪除課程
 	@PostMapping(value = "/api/deletecourse")
 	public CourseResponse findById(@RequestBody CourseRequest req) {
 		CourseResponse res = new CourseResponse();
@@ -39,23 +39,23 @@ public class CourseController {
 		res.setMessage("課程刪除成功!!");
 		return res;
 	}
-
+	//用id,name尋找課程
 	@GetMapping(value = "/api/findcourse")
 	public List<CourseResponse> getCourse(@RequestParam(required = false) String coursecode,
 			@RequestParam(required = false) String coursename) {
 		return courseService.getCourse(coursecode, coursename);
 	}
-
+	//尋找已選課程
 	@GetMapping(value = "/api/findstudentcourse")
 	public List<StudentResponse> findStudentCourse(@RequestParam String studentId) {
 		return courseService.findStudentCourse(studentId);
 	}
-
+	//加選
 	@PostMapping(value = "/api/addcourse")
 	public AddCourseResponse addCourse(@RequestBody AddCourseRequest request) {
 		return courseService.addCourse(request);
 	}
-
+	//修改
 	@PostMapping(value = "/api/revisecourse")
 	public CourseResponse reviseCourse(@RequestBody CourseRequest req) {
 		CourseResponse res = new CourseResponse();

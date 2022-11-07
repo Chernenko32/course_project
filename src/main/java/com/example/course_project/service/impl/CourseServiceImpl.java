@@ -57,7 +57,6 @@ public class CourseServiceImpl implements CourseService {
 		return res;
 	}
 
-
 	@Override
 	public Course findById(String coursecode) {
 		Course course = new Course();
@@ -122,87 +121,80 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public AddCourseResponse addCourse(AddCourseRequest addCourseRequest) {
-		int x = 0;
-		AddCourseResponse adcr = new AddCourseResponse();
-		StudentCourse studentCourse = new StudentCourse();
-		Optional<Course> courseOp = courseDao.findById(addCourseRequest.getCoursecode());
-		Course course = courseOp.orElse(null);
-		if (courseOp == null || courseOp.isEmpty()) {
-			adcr.setMessage("無此課程");
-		}
-		// 找Id對應的學生課程
-		List<StudentCourse> scList = studentDao.findAllByStudentId(addCourseRequest.getStudentId());
-		// 如果都沒有的話，新增資料
-		if (scList == null || scList.isEmpty()) {
-			studentCourse.setId(addCourseRequest.getId());
-			studentCourse.setCourseCode(course.getCourseCode());
-			studentCourse.setCourseName(course.getCourseName());
-			studentCourse.setStudentName(addCourseRequest.getStudentName());
-			studentCourse.setStudentId(addCourseRequest.getStudentId());
-			studentCourse.setCourseDay(course.getCourseDay());
-			studentCourse.setCourseStart(course.getCourseStart());
-			studentCourse.setCourseEnd(course.getCourseEnd());
-			studentCourse.setCredit(course.getCredit());
 
-			// 如果有值存在的話，做檢查
-		} else {
-			for (StudentCourse sc : scList) {
-				if (addCourseRequest.getId().equalsIgnoreCase(sc.getId())) {
-					adcr.setMessage("重複!");
-					return adcr;
-				}
-				int totalCredit = 0;
-				studentCourse.setId(addCourseRequest.getId());
-				studentCourse.setCourseCode(course.getCourseCode());
-				studentCourse.setCourseName(course.getCourseName());
-				studentCourse.setStudentName(addCourseRequest.getStudentName());
-				studentCourse.setStudentId(addCourseRequest.getStudentId());
-				studentCourse.setCourseDay(course.getCourseDay());
-				studentCourse.setCourseStart(course.getCourseStart());
-				studentCourse.setCourseEnd(course.getCourseEnd());
-				studentCourse.setCredit(course.getCredit());
-				totalCredit += course.getCredit();
-				for (StudentCourse sc1 : scList) {
+        StudentCourse studentCourseEntity = new StudentCourse();
+        AddCourseResponse response = new AddCourseResponse();
+        Optional<Course> courseOptional = courseDao.findById(addCourseRequest.getCoursecode());
+        if (courseOptional.isPresent()) {
+            response.setMessage("無此課程");
+        }
+        Course course = courseOptional.get();
 
-					totalCredit += sc1.getCredit();
-					if (studentCourse.getCourseName().equalsIgnoreCase(sc1.getCourseName())) {
-						adcr.setMessage("重複!");
-						return adcr;
-					}
-					if (addCourseRequest.getCoursecode().equalsIgnoreCase(sc1.getCourseCode())) {
-						adcr.setMessage("重複!");
-						return adcr;
-					}
-					if (totalCredit > 10) {
-						adcr.setMessage("學分不能大於10");
-						return adcr;
-					}
-				}
-				break;
-			}
-		}
-		adcr.setCoursecode(course.getCourseCode());
-		adcr.setStudentId(addCourseRequest.getStudentId());
-		adcr.setMessage("加選成功");
-		studentDao.save(studentCourse);
-		return adcr;
-	}
-	
+        int totalCredit = course.getCredit();
+        // 找Id對應的學生課程
+        List<StudentCourse> studentCourseList = studentDao.findAllByStudentId(addCourseRequest.getStudentId());
+        for (StudentCourse studentCourse : studentCourseList) {
+            totalCredit += studentCourse.getCredit();
+            if (addCourseRequest.getId().equalsIgnoreCase(studentCourse.getId())) {
+                response.setMessage("id重複!");
+                return response;
+            }
+            
+            if (course.getCourseName().equalsIgnoreCase(studentCourse.getCourseName())) {
+                response.setMessage("名稱重複!");
+                return response;
+            }
+            if (addCourseRequest.getCoursecode().equalsIgnoreCase(studentCourse.getCourseCode())) {
+                response.setMessage("代碼重複!");
+                return response;
+            }
+            if (totalCredit > 10) {
+                response.setMessage("學分不能大於10");
+                return response;
+            }
+            if(course.getCourseDay().equals(studentCourse.getCourseDay())) {
+            	boolean time1 = course.getCourseStart().isAfter(studentCourse.getCourseStart())&&course.getCourseStart().isBefore(studentCourse.getCourseEnd());
+            	boolean time2 = course.getCourseEnd().isAfter(studentCourse.getCourseStart())&&course.getCourseEnd().isBefore(studentCourse.getCourseEnd());
+            	boolean time3 = course.getCourseStart().isBefore(studentCourse.getCourseStart())&&course.getCourseEnd().isAfter(studentCourse.getCourseEnd());
+            	boolean time4 = course.getCourseStart().equals(studentCourse.getCourseStart())&&course.getCourseEnd().equals(studentCourse.getCourseEnd());
+            	if(time1||time2||time3||time4) {
+            		response.setMessage("與現有課程時間重疊!");
+            		return response;
+            	}
+            }
+        }
+        studentCourseEntity.setId(addCourseRequest.getId());
+        studentCourseEntity.setCourseCode(course.getCourseCode());
+        studentCourseEntity.setCourseName(course.getCourseName());
+        studentCourseEntity.setStudentName(addCourseRequest.getStudentName());
+        studentCourseEntity.setStudentId(addCourseRequest.getStudentId());
+        studentCourseEntity.setCourseDay(course.getCourseDay());
+        studentCourseEntity.setCourseStart(course.getCourseStart());
+        studentCourseEntity.setCourseEnd(course.getCourseEnd());
+        studentCourseEntity.setCredit(course.getCredit());
+        studentDao.save(studentCourseEntity);
+
+        response.setCoursecode(course.getCourseCode());
+        response.setStudentId(addCourseRequest.getStudentId());
+        response.setMessage("加選成功");
+        return response;
+    }
+
 	@Override
-	 public Course reviseCourse(String courseCode, String courseName, String courseDay, LocalTime courseStart,
-	   LocalTime courseEnd, int credit) {
-	  Course course = new Course();
-	  Optional<Course> courseOp = courseDao.findById(courseCode);
-	  // 判斷資料庫內容
-	  if (courseOp.isPresent() || !StringUtils.hasText(courseCode)) {
-	   course.setCourseCode(courseCode);
-	   course.setCourseName(courseName);
-	   course.setCourseDay(courseDay);
-	   course.setCourseStart(courseStart);
-	   course.setCourseEnd(courseEnd);
-	   course.setCredit(credit);
-	   courseDao.save(course);
-	  }
-	  return course;
-	 }
+	public Course reviseCourse(String courseCode, String courseName, String courseDay, LocalTime courseStart,
+			LocalTime courseEnd, int credit) {
+		Course course = new Course();
+		Optional<Course> courseOp = courseDao.findById(courseCode);
+		// 判斷資料庫內容
+		if (courseOp.isPresent() || !StringUtils.hasText(courseCode)) {
+			course.setCourseCode(courseCode);
+			course.setCourseName(courseName);
+			course.setCourseDay(courseDay);
+			course.setCourseStart(courseStart);
+			course.setCourseEnd(courseEnd);
+			course.setCredit(credit);
+			courseDao.save(course);
+		}
+		return course;
+	}
 }
