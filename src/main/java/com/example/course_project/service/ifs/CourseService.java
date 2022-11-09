@@ -14,14 +14,16 @@ public interface CourseService {
 	public CourseResponse createCourse(String courseCode, String courseName, String courseDay, LocalTime courseStart,
 			LocalTime courseEnd, int credit);
 	//刪除課程
-	public Course findById(String courseCode);
+	public Course deleteCourseById(String courseCode);
 	//用id,name尋找課程
 	public List<CourseResponse> getCourse(String courseCode, String courseName);
 	//尋找已選課程
-	public List<StudentResponse> findStudentCourse(String studentId);
+	public StudentResponse findStudentCourse(String studentId);
 	//加選
 	public AddCourseResponse addCourse(AddCourseRequest addCourseRequest);
 	//修改
 	public Course reviseCourse(String courseCode, String courseName, String courseDay, LocalTime courseStart,
 			   LocalTime courseEnd, int credit);
+	
+	public boolean hasCourseCode(String courseCode);
 }

@@ -25,7 +25,7 @@ public class StudentResponse {
 	
 	private LocalTime courseend;
 	
-	private int creddit;
+	private Integer creddit;
 
 	private List<StudentCourse> studentlist;
 	
@@ -95,11 +95,11 @@ public class StudentResponse {
 		this.courseend = courseend;
 	}
 
-	public int getCreddit() {
+	public Integer getCreddit() {
 		return creddit;
 	}
 
-	public void setCreddit(int creddit) {
+	public void setCreddit(Integer creddit) {
 		this.creddit = creddit;
 	}
 

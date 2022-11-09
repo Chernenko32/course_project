@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.course_project.entity.Course;
+import com.example.course_project.repository.CourseDao;
 import com.example.course_project.service.ifs.CourseService;
 import com.example.course_project.vo.CourseRequest;
 import com.example.course_project.vo.CourseResponse;
@@ -20,6 +21,7 @@ public class CourseController {
 
 	@Autowired
 	private CourseService courseService;
+	
 	//新增課程
 	@PostMapping(value = "/api/createcourse")
 	public CourseResponse createcourse(@RequestBody CourseRequest request) {
@@ -28,26 +30,30 @@ public class CourseController {
 	}
 	//刪除課程
 	@PostMapping(value = "/api/deletecourse")
-	public CourseResponse findById(@RequestBody CourseRequest req) {
+	public CourseResponse deleteCourseById(@RequestBody CourseRequest req) {
 		CourseResponse res = new CourseResponse();
-		Course course = courseService.findById(req.getCourseCode());
-		// 防呆
-		if (course == null) {
+		if (req.getCourseCode() == null) {
 			res.setMessage("請輸入課程代碼!!");
 			return res;
-		}
+		}		
+		// 防呆
+		if (!courseService.hasCourseCode(req.getCourseCode())) {
+			res.setMessage("代碼錯誤!");
+			return res;
+		};
+		courseService.deleteCourseById(req.getCourseCode());
 		res.setMessage("課程刪除成功!!");
 		return res;
 	}
 	//用id,name尋找課程
 	@GetMapping(value = "/api/findcourse")
-	public List<CourseResponse> getCourse(@RequestParam(required = false) String coursecode,
-			@RequestParam(required = false) String coursename) {
-		return courseService.getCourse(coursecode, coursename);
+	public List<CourseResponse> getCourse(@RequestParam(required = false) String courseCode,
+			@RequestParam(required = false) String courseName) {
+		return courseService.getCourse(courseCode, courseName);
 	}
 	//尋找已選課程
 	@GetMapping(value = "/api/findstudentcourse")
-	public List<StudentResponse> findStudentCourse(@RequestParam String studentId) {
+	public StudentResponse findStudentCourse(@RequestParam String studentId) {
 		return courseService.findStudentCourse(studentId);
 	}
 	//加選

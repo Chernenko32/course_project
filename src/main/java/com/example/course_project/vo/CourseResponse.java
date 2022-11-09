@@ -21,15 +21,15 @@ public class CourseResponse {
 	
 	private LocalTime courseEnd;
 	
-	private int credit;
+	private Integer credit;
 	
 	
 	
-	public int getCredit() {
+	public Integer getCredit() {
 		return credit;
 	}
 
-	public void setCredit(int credit) {
+	public void setCredit(Integer credit) {
 		this.credit = credit;
 	}
 
