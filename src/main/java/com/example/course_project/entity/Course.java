@@ -22,13 +22,13 @@ public class Course {
 	@Column(name = "course_end")
 	private LocalTime courseEnd;
 	@Column(name = "credit")
-	private int credit;
+	private Integer credit;
 	
 	public Course() {
 
 	}
 	
-	public Course(String courseCode,String courseName,String courseDay,LocalTime courseStart,LocalTime courseEnd,int credit) {
+	public Course(String courseCode,String courseName,String courseDay,LocalTime courseStart,LocalTime courseEnd,Integer credit) {
 		this.courseCode=courseCode;
 		this.courseName=courseName;
 		this.courseDay=courseDay;
@@ -77,11 +77,11 @@ public class Course {
 		this.courseEnd = courseEnd;
 	}
 
-	public int getCredit() {
+	public Integer getCredit() {
 		return credit;
 	}
 
-	public void setCredit(int credit) {
+	public void setCredit(Integer credit) {
 		this.credit = credit;
 	}
 

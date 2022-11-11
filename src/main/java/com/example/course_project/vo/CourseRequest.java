@@ -17,7 +17,7 @@ public class CourseRequest {
 	@JsonProperty("courseend")
 	private LocalTime courseEnd;
 	@JsonProperty("credit")
-	private int credit;
+	private Integer credit;
 
 	public CourseRequest() {
 
@@ -63,11 +63,11 @@ public class CourseRequest {
 		this.courseEnd = courseEnd;
 	}
 
-	public int getCredit() {
+	public Integer getCredit() {
 		return credit;
 	}
 
-	public void setCredit(int credit) {
+	public void setCredit(Integer credit) {
 		this.credit = credit;
 	}
 

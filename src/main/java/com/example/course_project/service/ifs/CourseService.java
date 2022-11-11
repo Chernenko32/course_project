@@ -8,22 +8,24 @@ import com.example.course_project.vo.CourseResponse;
 import com.example.course_project.vo.StudentResponse;
 import com.example.course_project.vo.AddCourseRequest;
 import com.example.course_project.vo.AddCourseResponse;
+import com.example.course_project.vo.CourseRequest;
 
 public interface CourseService {
 	//新增課程
 	public CourseResponse createCourse(String courseCode, String courseName, String courseDay, LocalTime courseStart,
 			LocalTime courseEnd, int credit);
 	//刪除課程
-	public Course deleteCourseById(String courseCode);
+	public CourseResponse deleteCourseById(CourseRequest req);
 	//用id,name尋找課程
-	public List<CourseResponse> getCourse(String courseCode, String courseName);
+	public CourseResponse getCourse(String courseCode, String courseName);
 	//尋找已選課程
 	public StudentResponse findStudentCourse(String studentId);
 	//加選
 	public AddCourseResponse addCourse(AddCourseRequest addCourseRequest);
 	//修改
-	public Course reviseCourse(String courseCode, String courseName, String courseDay, LocalTime courseStart,
-			   LocalTime courseEnd, int credit);
+	public CourseResponse reviseCourse(CourseRequest req);
 	
 	public boolean hasCourseCode(String courseCode);
+	
+	public StudentResponse deleteCourse(String studentId,String courseCode);
 }

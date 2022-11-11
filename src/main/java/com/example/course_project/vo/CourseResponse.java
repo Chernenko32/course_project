@@ -23,6 +23,7 @@ public class CourseResponse {
 	
 	private Integer credit;
 	
+	private List<Course> courseList;
 	
 	
 	public Integer getCredit() {
@@ -57,7 +58,6 @@ public class CourseResponse {
 		this.courseEnd = courseEnd;
 	}
 
-	private List<Course> courseList;
 	
 	public CourseResponse() {
 

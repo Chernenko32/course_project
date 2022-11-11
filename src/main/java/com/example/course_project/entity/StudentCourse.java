@@ -29,7 +29,7 @@ public class StudentCourse {
 	@Column(name = "course_end")
 	private LocalTime courseEnd;
 	@Column(name = "credit")
-	private int credit;
+	private Integer credit;
 	
 	public StudentCourse() {
 
@@ -113,11 +113,11 @@ public class StudentCourse {
 		this.courseEnd = courseEnd;
 	}
 
-	public int getCredit() {
+	public Integer getCredit() {
 		return credit;
 	}
 
-	public void setCredit(int credit) {
+	public void setCredit(Integer credit) {
 		this.credit = credit;
 	}
 	

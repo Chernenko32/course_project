@@ -30,24 +30,12 @@ public class CourseController {
 	}
 	//刪除課程
 	@PostMapping(value = "/api/deletecourse")
-	public CourseResponse deleteCourseById(@RequestBody CourseRequest req) {
-		CourseResponse res = new CourseResponse();
-		if (req.getCourseCode() == null) {
-			res.setMessage("請輸入課程代碼!!");
-			return res;
-		}		
-		// 防呆
-		if (!courseService.hasCourseCode(req.getCourseCode())) {
-			res.setMessage("代碼錯誤!");
-			return res;
-		};
-		courseService.deleteCourseById(req.getCourseCode());
-		res.setMessage("課程刪除成功!!");
-		return res;
-	}
+	 public CourseResponse deleteById(@RequestBody CourseRequest req) {
+	  return courseService.deleteCourseById(req);
+	 }
 	//用id,name尋找課程
 	@GetMapping(value = "/api/findcourse")
-	public List<CourseResponse> getCourse(@RequestParam(required = false) String courseCode,
+	public CourseResponse getCourse(@RequestParam(required = false) String courseCode,
 			@RequestParam(required = false) String courseName) {
 		return courseService.getCourse(courseCode, courseName);
 	}
@@ -63,22 +51,12 @@ public class CourseController {
 	}
 	//修改
 	@PostMapping(value = "/api/revisecourse")
-	public CourseResponse reviseCourse(@RequestBody CourseRequest req) {
-		CourseResponse res = new CourseResponse();
-		Course course = courseService.reviseCourse(req.getCourseCode(), req.getCourseName(), req.getCourseDay(),
-				req.getCourseStart(), req.getCourseEnd(), req.getCredit());
-		// 防呆
-		if (course == null) {
-			res.setMessage("請輸入課程代碼!!");
-			return res;
-		}
-		res.setCourseCode(course.getCourseCode());
-		res.setCourseName(course.getCourseName());
-		res.setCourseDay(course.getCourseDay());
-		res.setCourseStart(course.getCourseStart());
-		res.setCourseEnd(course.getCourseEnd());
-		res.setCredit(course.getCredit());
-		res.setMessage("課程修改成功!!");
-		return res;
+	 public CourseResponse reviseCourse(@RequestBody CourseRequest req) {
+	  return courseService.reviseCourse(req);
+	 }
+	
+	@GetMapping(value = "/api/deletestudentcourse")
+	public StudentResponse deleteCourse(@RequestParam String studentId,@RequestParam String courseCode) {
+		return courseService.deleteCourse(studentId,courseCode);
 	}
 }
