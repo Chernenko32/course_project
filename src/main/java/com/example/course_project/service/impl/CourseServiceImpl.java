@@ -55,16 +55,7 @@ public class CourseServiceImpl implements CourseService {
 			res.setMessage("學分錯誤!");
 			return res;
 		}
-//		if(!courseDay.equalsIgnoreCase("MON")
-//				||!courseDay.equalsIgnoreCase("TUE")
-//				||!courseDay.equalsIgnoreCase("WED")
-//				||!courseDay.equalsIgnoreCase("THU")
-//				||!courseDay.equalsIgnoreCase("FRI")
-//				||!courseDay.equalsIgnoreCase("SAT")) {
-//			res.setMessage("日期錯誤!");
-//			return res;
-//		}
-
+		
 		List<String> checkDay = new ArrayList<>();
 		checkDay.add("MON");
 		checkDay.add("TUE");
@@ -79,15 +70,6 @@ public class CourseServiceImpl implements CourseService {
 		}
 		;
 
-//		List<String>checkCode=new ArrayList<>();
-//		checkCode.add("A01");
-//		checkCode.add("A02");
-//		checkCode.add("A03");
-//		checkCode.add("A04");
-//		checkCode.add("A05");
-//		checkCode.add("A06");
-//		checkCode.add("A07");
-//		checkCode.add("A08");
 		if (hasCourseCode(courseCode)) {
 			res.setMessage("代碼錯誤!");
 			return res;

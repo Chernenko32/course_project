@@ -1,14 +1,11 @@
 package com.example.course_project.controller;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.course_project.entity.Course;
-import com.example.course_project.repository.CourseDao;
 import com.example.course_project.service.ifs.CourseService;
 import com.example.course_project.vo.CourseRequest;
 import com.example.course_project.vo.CourseResponse;
@@ -54,7 +51,7 @@ public class CourseController {
 	 public CourseResponse reviseCourse(@RequestBody CourseRequest req) {
 	  return courseService.reviseCourse(req);
 	 }
-	
+	//刪除已選課程
 	@GetMapping(value = "/api/deletestudentcourse")
 	public StudentResponse deleteCourse(@RequestParam String studentId,@RequestParam String courseCode) {
 		return courseService.deleteCourse(studentId,courseCode);
