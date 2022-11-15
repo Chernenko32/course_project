@@ -33,6 +33,7 @@ public class CourseServiceImpl implements CourseService {
 	public CourseResponse createCourse(String courseCode, String courseName, String courseDay, LocalTime courseStart,
 			LocalTime courseEnd, int credit) {
 		CourseResponse res = new CourseResponse();
+		//防呆
 		if (!StringUtils.hasText(courseCode) || !StringUtils.hasText(courseName) || !StringUtils.hasText(courseDay)
 				|| courseStart == null || courseEnd == null) {
 			res.setMessage("課程內容錯誤");
@@ -92,23 +93,23 @@ public class CourseServiceImpl implements CourseService {
 			return res;
 		}
 		;
-
+		//設值,插進資料庫
 		Course course = new Course();
-
 		course.setCourseCode(courseCode);
 		course.setCourseName(courseName);
 		course.setCourseDay(courseDay);
 		course.setCourseStart(courseStart);
 		course.setCourseEnd(courseEnd);
 		course.setCredit(credit);
-
+		courseDao.save(course);
+		//顯示
 		res.setCourseCode(course.getCourseCode());
 		res.setCourseName(course.getCourseName());
 		res.setCourseDay(course.getCourseDay());
 		res.setCourseStart(course.getCourseStart());
 		res.setCourseEnd(course.getCourseEnd());
 		res.setCredit(course.getCredit());
-		courseDao.save(course);
+		
 		res.setMessage("課程新增成功");
 		return res;
 	}
@@ -145,7 +146,6 @@ public class CourseServiceImpl implements CourseService {
 			Course course = optionalcourse.orElse(null);
 			if (course == null) {
 				res.setMessage("不存在");
-
 				return res;
 			} else {
 				res.setCourseCode(course.getCourseCode());
@@ -166,10 +166,10 @@ public class CourseServiceImpl implements CourseService {
 			List<Course> listCourse = courseDao.findByCourseName(courseName);
 			if (listCourse == null || listCourse.isEmpty()) {
 				res.setMessage("課程不存在!");
-
 				return res;
 			}
 			List<Course> courseList = new ArrayList<>();
+			//用for迴圈把List型態轉成response型態
 			for (Course course : listCourse) {
 				Course cores = new Course();
 				cores.setCourseCode(course.getCourseCode());
@@ -229,7 +229,7 @@ public class CourseServiceImpl implements CourseService {
 		}
 
 		Optional<Course> courseOptional = courseDao.findById(addCourseRequest.getCoursecode());
-		if (courseOptional.isPresent()) {
+		if (!courseOptional.isPresent()) {
 			response.setMessage("無此課程");
 		}
 		Course course = courseOptional.get();
@@ -263,20 +263,16 @@ public class CourseServiceImpl implements CourseService {
 				response.setMessage("學分不能大於10");
 				return response;
 			}
+			//防衝堂
 			if (course.getCourseDay().equals(studentCourse.getCourseDay())) {
-				// |--------------------------|
 				boolean time1 = course.getCourseStart().isAfter(studentCourse.getCourseStart())
 						&& course.getCourseStart().isBefore(studentCourse.getCourseEnd());
-				// s| s|
 				boolean time2 = course.getCourseEnd().isAfter(studentCourse.getCourseStart())
 						&& course.getCourseEnd().isBefore(studentCourse.getCourseEnd());
-				// e| e|
 				boolean time3 = course.getCourseStart().isBefore(studentCourse.getCourseStart())
 						&& course.getCourseEnd().isAfter(studentCourse.getCourseEnd());
-				// s| e|
 				boolean time4 = course.getCourseStart().equals(studentCourse.getCourseStart())
 						&& course.getCourseEnd().equals(studentCourse.getCourseEnd());
-				// s| e|
 				if (time1 || time2 || time3 || time4) {
 					response.setMessage("與現有課程時間重疊!");
 					return response;
@@ -303,6 +299,7 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public CourseResponse reviseCourse(CourseRequest req) {
 		CourseResponse res = new CourseResponse();
+		//防呆
 		if (req.getCourseCode().isEmpty()) {
 			res.setMessage("課程代碼錯誤");
 			return res;
@@ -337,13 +334,14 @@ public class CourseServiceImpl implements CourseService {
 			course.setCourseStart(req.getCourseStart());
 			course.setCourseEnd(req.getCourseEnd());
 			course.setCredit(req.getCredit());
+			courseDao.save(course);
+			
 			res.setCourseCode(course.getCourseCode());
 			res.setCourseName(req.getCourseName());
 			res.setCourseDay(req.getCourseDay());
 			res.setCourseStart(req.getCourseStart());
 			res.setCourseEnd(req.getCourseEnd());
 			res.setCredit(req.getCredit());
-			courseDao.save(course);
 			res.setMessage("課程更改成功!!");
 			return res;
 		}
@@ -360,7 +358,6 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public StudentResponse deleteCourse(String studentId, String courseCode) {
 		StudentResponse studentResponse = new StudentResponse();
-
 		if (studentId == null || studentId.isEmpty()) {
 			studentResponse.setMessage("id錯誤!");
 			return studentResponse;

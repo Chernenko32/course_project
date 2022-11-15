@@ -26,6 +26,6 @@ public interface CourseService {
 	public CourseResponse reviseCourse(CourseRequest req);
 	
 	public boolean hasCourseCode(String courseCode);
-	
+	//退選
 	public StudentResponse deleteCourse(String studentId,String courseCode);
 }

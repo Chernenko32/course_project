@@ -10,6 +10,6 @@ import com.example.course_project.entity.Course;
 @Repository
 public interface CourseDao extends JpaRepository<Course, String> {
 
-	List<Course> findByCourseName(String name);
+	public List<Course> findByCourseName(String name);
 
 }
