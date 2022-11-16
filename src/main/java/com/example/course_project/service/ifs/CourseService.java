@@ -24,7 +24,7 @@ public interface CourseService {
 	public AddCourseResponse addCourse(AddCourseRequest addCourseRequest);
 	//修改
 	public CourseResponse reviseCourse(CourseRequest req);
-	
+	//自定義方法
 	public boolean hasCourseCode(String courseCode);
 	//退選
 	public StudentResponse deleteCourse(String studentId,String courseCode);
