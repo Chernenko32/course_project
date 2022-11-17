@@ -21,9 +21,8 @@ public class CourseController {
 	
 	//新增課程
 	@PostMapping(value = "/api/createcourse")
-	public CourseResponse createcourse(@RequestBody CourseRequest request) {
-		return courseService.createCourse(request.getCourseCode(), request.getCourseName(), request.getCourseDay(),
-				request.getCourseStart(), request.getCourseEnd(), request.getCredit());
+	public CourseResponse createCourse(@RequestBody CourseRequest request) {
+		return courseService.createCourse(request);
 	}
 	//刪除課程
 	@PostMapping(value = "/api/deletecourse")

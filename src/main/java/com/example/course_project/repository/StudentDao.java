@@ -21,5 +21,7 @@ public interface StudentDao extends JpaRepository<StudentCourse, String> {
 	
 	public List<StudentCourse> findByStudentId(String studentId);
 	
+	public List<StudentCourse> findByCourseCode(String courseCode);
+	
 	//StudentCourse findByStudentId(String studentId);
 }

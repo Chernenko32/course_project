@@ -12,8 +12,7 @@ import com.example.course_project.vo.CourseRequest;
 
 public interface CourseService {
 	//新增課程
-	public CourseResponse createCourse(String courseCode, String courseName, String courseDay, LocalTime courseStart,
-			LocalTime courseEnd, int credit);
+	public CourseResponse createCourse(CourseRequest req);
 	//刪除課程
 	public CourseResponse deleteCourseById(CourseRequest req);
 	//用id,name尋找課程
