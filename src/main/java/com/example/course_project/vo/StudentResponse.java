@@ -27,7 +27,7 @@ public class StudentResponse {
 	
 	private Integer creddit;
 
-	private List<StudentCourse> studentlist;
+	private List<StudentCourse> studentList;
 	
 	private String message;
 
@@ -36,7 +36,7 @@ public class StudentResponse {
 	}
 
 	public StudentResponse(List<StudentCourse> studentlist) {
-		this.studentlist = studentlist;
+		this.studentList = studentlist;
 	}
 
 	public String getStudentId() {
@@ -104,11 +104,11 @@ public class StudentResponse {
 	}
 
 	public List<StudentCourse> getStudentlist() {
-		return studentlist;
+		return studentList;
 	}
 
 	public void setStudentlist(List<StudentCourse> studentlist) {
-		this.studentlist = studentlist;
+		this.studentList = studentlist;
 	}
 
 	public String getMessage() {

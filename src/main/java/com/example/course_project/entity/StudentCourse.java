@@ -14,20 +14,28 @@ public class StudentCourse {
 	@Id
 	@Column(name = "id")
 	private String id;
+	
 	@Column(name = "student_id")
 	private String studentId;
+	
 	@Column(name = "student_name")
 	private String studentName;
+	
 	@Column(name = "course_code")
 	private String courseCode;
+	
 	@Column(name = "course_name")
 	private String courseName;
+	
 	@Column(name = "course_day")
 	private String courseDay;
+	
 	@Column(name = "course_start")
 	private LocalTime courseStart;
+	
 	@Column(name = "course_end")
 	private LocalTime courseEnd;
+	
 	@Column(name = "credit")
 	private Integer credit;
 	

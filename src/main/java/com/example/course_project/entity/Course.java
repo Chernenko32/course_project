@@ -28,7 +28,7 @@ public class Course {
 
 	}
 	
-	public Course(String courseCode,String courseName,String courseDay,LocalTime courseStart,LocalTime courseEnd,Integer credit) {
+	public Course(String courseCode, String courseName, String courseDay, LocalTime courseStart, LocalTime courseEnd, Integer credit) {
 		this.courseCode=courseCode;
 		this.courseName=courseName;
 		this.courseDay=courseDay;

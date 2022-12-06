@@ -8,24 +8,34 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CourseResponse {
-	
+
 	private String courseCode;
-	
+
 	private String courseName;
-	
+
 	private String message;
-	
+
 	private String courseDay;
-	
+
 	private LocalTime courseStart;
-	
+
 	private LocalTime courseEnd;
-	
+
 	private Integer credit;
-	
+
 	private List<Course> courseList;
-	
-	
+
+	public CourseResponse(String courseCode, String courseName, String courseDay, LocalTime courseStart,
+			LocalTime courseEnd, Integer credit,String message) {
+		this.courseCode = courseCode;
+		this.courseName = courseName;
+		this.courseDay = courseDay;
+		this.courseStart = courseStart;
+		this.courseEnd = courseEnd;
+		this.credit = credit;
+		this.message=message;
+	}
+
 	public Integer getCredit() {
 		return credit;
 	}
@@ -58,11 +68,10 @@ public class CourseResponse {
 		this.courseEnd = courseEnd;
 	}
 
-	
 	public CourseResponse() {
 
 	}
-	
+
 	public CourseResponse(List<Course> courseList) {
 		this.courseList = courseList;
 	}
@@ -98,7 +107,5 @@ public class CourseResponse {
 	public void setCourseList(List<Course> courseList) {
 		this.courseList = courseList;
 	}
-	
-	
 
 }

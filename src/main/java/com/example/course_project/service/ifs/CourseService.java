@@ -1,14 +1,10 @@
 package com.example.course_project.service.ifs;
 
-import java.time.LocalTime;
-import java.util.List;
-
-import com.example.course_project.entity.Course;
-import com.example.course_project.vo.CourseResponse;
-import com.example.course_project.vo.StudentResponse;
 import com.example.course_project.vo.AddCourseRequest;
 import com.example.course_project.vo.AddCourseResponse;
 import com.example.course_project.vo.CourseRequest;
+import com.example.course_project.vo.CourseResponse;
+import com.example.course_project.vo.StudentResponse;
 
 public interface CourseService {
 	//新增課程
@@ -23,8 +19,8 @@ public interface CourseService {
 	public AddCourseResponse addCourse(AddCourseRequest addCourseRequest);
 	//修改
 	public CourseResponse reviseCourse(CourseRequest req);
-	//自定義方法
-	public boolean hasCourseCode(String courseCode);
+//	//自定義方法
+//	public boolean hasCourseCode(String courseCode);
 	//退選
 	public StudentResponse deleteCourse(String studentId,String courseCode);
 }

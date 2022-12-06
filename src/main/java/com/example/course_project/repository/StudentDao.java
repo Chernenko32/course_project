@@ -15,7 +15,7 @@ public interface StudentDao extends JpaRepository<StudentCourse, String> {
 	public List<StudentCourse> findAllByStudentId(String studentId);
 	@Modifying 
 	@Transactional
-	public List<StudentCourse> deleteBycourseCode(String courseCode);
+	public List<StudentCourse> deleteByCourseCode(String courseCode);
 	
 	public List<StudentCourse> getBycourseCode(String courseCode);
 	

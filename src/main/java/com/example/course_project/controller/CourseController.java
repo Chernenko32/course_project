@@ -1,6 +1,7 @@
 package com.example.course_project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,7 +13,7 @@ import com.example.course_project.vo.CourseResponse;
 import com.example.course_project.vo.StudentResponse;
 import com.example.course_project.vo.AddCourseRequest;
 import com.example.course_project.vo.AddCourseResponse;
-
+@CrossOrigin
 @RestController
 public class CourseController {
 

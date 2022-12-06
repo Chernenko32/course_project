@@ -8,14 +8,19 @@ public class CourseRequest {
 
 	@JsonProperty("coursecode")
 	private String courseCode;
+	
 	@JsonProperty("coursename")
 	private String courseName;
+	
 	@JsonProperty("courseday")
 	private String courseDay;
+	
 	@JsonProperty("coursestart")
 	private LocalTime courseStart;
+	
 	@JsonProperty("courseend")
 	private LocalTime courseEnd;
+	
 	@JsonProperty("credit")
 	private Integer credit;
 
